@@ -1,0 +1,7 @@
+<launch>
+  
+  <!-- uv_bot_teleop_key already has its own built in velocity smoother -->
+
+  <node pkg="teleop" type="teleop" name="teleop"  output="screen">
+  </node>
+</launch>

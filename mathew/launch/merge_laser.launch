@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+	<!-- sudo apt-get install ros-<distro>-ira-laser-tools -->
+
+	<node pkg="tf" type="static_transform_publisher" name="laser_link_offset" args="0 0 0.16 0 0 0 1 base_footprint laser_link 5" />
+
+        <!--Merging the processed laser scans into a single scan and publishing it-->
+        <node pkg="ira_laser_tools" name="merge_after_filter" type="laserscan_multi_merger" output="screen" launch-prefix="bash -c 'sleep 3; $0 $@'">
+                <param name="scan_destination_topic" value="/merged_scan" />
+                <param name="destination_frame" value="laser_link" />
+                <param name="laserscan_topics" value="/velo2d/front /velo2d/back" />
+                <param name="angle_min" value="-3.14159011841" />
+                <param name="angle_max" value="3.14159011841" />
+        </node>
+
+
+
+</launch>

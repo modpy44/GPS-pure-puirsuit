@@ -1,0 +1,4 @@
+<launch>
+<node pkg="waypoint_navigation" type="gps_waypoint_converter" name="gps_waypoint" output="screen" />
+		<param name="/waypoint_navigation/coordinates_file" value="/waypoint_files/waypoints.txt" type="string" />
+</launch>
