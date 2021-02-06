@@ -23,6 +23,8 @@
     <param name="frame_id" value="map"/>
 </node>
 
+ <include file="$(find pc2l)/launch/start.launch"/>
+
   <include file="$(find mathew)/launch/merge_laser.launch"/>
 
    <!--DWA-pure pursuit planner-->
@@ -34,8 +36,9 @@
     <rosparam file="$(find mathew)/param/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find mathew)/param/move_base_params.yaml" command="load" />
     <rosparam file="$(find mathew)/param/dwa_local_planner_params.yaml" command="load" />
+    <param name="planner_frequency" value="0.0"/>
     
-    <remap from="move_base_simple/goal" to="/goal"/>
+    <!--<remap from="move_base_simple/goal" to="/goal"/>-->
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
     <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />

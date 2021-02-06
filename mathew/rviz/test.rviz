@@ -9,6 +9,8 @@ Panels:
         - /TF1/Tree1
         - /Path1
         - /Path2
+        - /RobotModel1
+        - /Map2
       Splitter Ratio: 0.5
     Tree Height: 424
   - Class: rviz/Selection
@@ -96,8 +98,6 @@ Visualization Manager:
           Value: false
         laser_link:
           Value: true
-        lookahead:
-          Value: true
         map:
           Value: false
         odom:
@@ -133,8 +133,6 @@ Visualization Manager:
                   flidar_velodyne:
                     {}
               laser_link:
-                {}
-              lookahead:
                 {}
           utm:
             {}
@@ -291,6 +289,16 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /move_base/local_costmap/costmap
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -328,7 +336,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 56.74823760986328
+      Scale: 13.907905578613281
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
       X: 14.4485445022583
