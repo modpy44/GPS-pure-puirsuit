@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot
+  name="mathew_two" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="gpu" default="false"/>
+  <xacro:property name="gpu" value="$(arg gpu)" />
+  <link
+    name="base_footprint">
+  </link>
+  <joint
+    name="base_footprint_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.189"
+      rpy="0 0 0" />
+    <parent
+      link="base_footprint" />
+    <child
+      link="Robot_base_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+  <link
+    name="Robot_base_link">
+    <inertial>
+      <origin
+        xyz="5.09591293669232E-05 1.03836497844512E-07 0.00199051081559098"
+        rpy="0 0 0" />
+      <mass
+        value="20" />  <!--241.063768542417-->
+      <inertia
+        ixx="8.86559277712223"
+        ixy="-0.000139376257944501"
+        ixz="-0.00190501007604874"
+        iyy="35.4285858259505"
+        iyz="-6.19174664034162E-06"
+        izz="40.1634860997762" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/Robot_base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/Robot_base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+  <link
+    name="OD_Front_Right_Link">
+    <inertial>
+      <origin
+        xyz="0 -0.051 -1.11022302462516E-16"
+        rpy="0 0 0" />
+      <mass
+        value="11.3918721666919" />
+      <inertia
+        ixx="0.116249630857941"
+        ixy="2.87991202066482E-21"
+        ixz="-4.0153067468998E-19"
+        iyy="0.212745755378839"
+        iyz="-4.60785923306369E-20"
+        izz="0.116249630857941" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/OD_Front_Right_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.843137254901961 0.815686274509804 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/OD_Front_Right_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_FR"
+    type="continuous">
+    <origin
+      xyz="0.471639244942989 -0.333 -0.0255025257158976"
+      rpy="0 0 0" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="OD_Front_Right_Link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+      <gazebo reference="OD_Front_Right_Link">
+    <kp>1000000.0</kp> 
+    <kd>50.0</kd>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+   </gazebo>
+
+
+
+  <link
+    name="OD_Front_Left_Link">
+    <inertial>
+      <origin
+        xyz="6.93889390390723E-18 0.0509999999999999 0"
+        rpy="0 0 0" />
+      <mass
+        value="11.3918721666919" />
+      <inertia
+        ixx="0.116249630857942"
+        ixy="-2.64396478353699E-34"
+        ixz="-4.01530674689982E-19"
+        iyy="0.212745755378839"
+        iyz="9.21571846612621E-20"
+        izz="0.116249630857942" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/OD_Front_Left_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.843137254901961 0.815686274509804 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/OD_Front_Left_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_FL"
+    type="continuous">
+    <origin
+      xyz="0.471639244942989 0.333 -0.0255025257158976"
+      rpy="0 0 0" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="OD_Front_Left_Link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+      <gazebo reference="OD_Front_Left_Link">
+    <kp>1000000.0</kp> 
+    <kd>50.0</kd>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+   </gazebo>
+
+
+
+  <link
+    name="OD_Rear_Right_Link">
+    <inertial>
+      <origin
+        xyz="2.22044604925031E-16 -0.051 -1.11022302462516E-16"
+        rpy="0 0 0" />
+      <mass
+        value="11.3918721666919" />
+      <inertia
+        ixx="0.116249630857941"
+        ixy="-2.64289174497246E-20"
+        ixz="0"
+        iyy="0.212745755378839"
+        iyz="-2.90867661436363E-18"
+        izz="0.116249630857941" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/OD_Rear_Right_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.843137254901961 0.815686274509804 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/OD_Rear_Right_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_RR"
+    type="continuous">
+    <origin
+      xyz="-0.471639244942989 -0.333 -0.0255025257158976"
+      rpy="0 0.0543209676279 0" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="OD_Rear_Right_Link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+      <gazebo reference="OD_Rear_Right_Link">
+    <kp>1000000.0</kp> 
+    <kd>50.0</kd>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+   </gazebo>
+
+
+
+  <link
+    name="OD_Rear_Left_Link">
+    <inertial>
+      <origin
+        xyz="0 0.0509999999999999 0"
+        rpy="0 0 0" />
+      <mass
+        value="11.3918721666919" />
+      <inertia
+        ixx="0.116249630857942"
+        ixy="2.64289174497374E-20"
+        ixz="-8.67361737988404E-19"
+        iyy="0.212745755378839"
+        iyz="2.90867661436364E-18"
+        izz="0.116249630857942" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/OD_Rear_Left_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.843137254901961 0.815686274509804 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/OD_Rear_Left_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_RL"
+    type="continuous">
+    <origin
+      xyz="-0.471639244942989 0.333 -0.0255025257158976"
+      rpy="0 0.054320967627 0" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="OD_Rear_Left_Link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+      <gazebo reference="OD_Rear_Left_Link">
+    <kp>1000000.0</kp> 
+    <kd>50.0</kd>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+   </gazebo>
+
+
+
+
+
+
+
+  <!--<link
+    name="Lidar_01_Link">
+    <inertial>
+      <origin
+        xyz="0 -5.27355936696949E-16 0.0185457213017122"
+        rpy="0 0 0" />
+      <mass
+        value="0.0354453335351902" />
+      <inertia
+        ixx="3.78262567255866E-05"
+        ixy="-1.52465930505774E-20"
+        ixz="-3.97578659645331E-22"
+        iyy="3.78262567255866E-05"
+        iyz="-4.18312799931867E-21"
+        izz="7.11838127161572E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/Lidar_01_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.666666666666667 0.666666666666667 0.654901960784314 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/Lidar_01_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Lidar_01"
+    type="fixed">
+    <origin
+      xyz="0.584349244942989 -0.206770000000001 0.223197474284102"
+      rpy="0 0 -1.94813685094794" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="Lidar_01_Link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Lidar_02_Link">
+    <inertial>
+      <origin
+        xyz="7.7715611723761E-16 -4.44089209850063E-16 0.0185457213017121"
+        rpy="0 0 0" />
+      <mass
+        value="0.0354453335351902" />
+      <inertia
+        ixx="3.78262567255866E-05"
+        ixy="-4.40457132572236E-20"
+        ixz="1.77605470036608E-20"
+        iyy="3.78262567255866E-05"
+        iyz="-5.92158401562722E-21"
+        izz="7.11838127161571E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/Lidar_02_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.666666666666667 0.666666666666667 0.654901960784314 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/Lidar_02_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_Lidar02"
+    type="fixed">
+    <origin
+      xyz="-0.582009244942989 0.20677 0.223197474284102"
+      rpy="0 0 0.490826785061071" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="Lidar_02_Link" />
+    <axis
+      xyz="0 0 1" />
+  </joint> -->
+
+
+  <xacro:include filename="$(find velodyne_description)/urdf/vel_mathew.urdf.xacro"/>
+  <xacro:HDL-32E parent="Robot_base_link" name="flidar_velodyne" topic="/front_velodyne_points2" hz="10" samples="220" gpu="${gpu}">
+    <origin xyz="0.584349244942989 -0.206770000000001 0.160" rpy="0 0 0" />
+  </xacro:HDL-32E>
+
+
+
+  <xacro:include filename="$(find velodyne_description)/urdf/vel_mathew.urdf.xacro"/>
+  <xacro:HDL-32E parent="Robot_base_link" name="blidar_velodyne" topic="/back_velodyne_points2" hz="10" samples="220" gpu="${gpu}">
+    <origin xyz="-0.582009244942989 0.20677 0.160" rpy="0 0 3.14" />
+  </xacro:HDL-32E>
+
+
+  <link
+    name="IMU_Link">
+    <inertial>
+      <origin
+        xyz="0.000291766672996907 0.024487106735259 0.000258129230045645"
+        rpy="0 0 0" />
+      <mass
+        value="0.0174359068070746" />
+      <inertia
+        ixx="5.2748517740017E-06"
+        ixy="2.52839048078136E-09"
+        ixz="-4.30155757447992E-08"
+        iyy="7.47358565355333E-06"
+        iyz="3.64112173942691E-07"
+        izz="4.96152225058903E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/IMU_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/IMU_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="IMU_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.01829 -0.000125000000000153 0.162297474284102"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="IMU_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+
+
+
+  <link
+    name="GPS_Link">
+    <inertial>
+      <origin
+        xyz="0.000991766672996907 0.024487106735259 0.000258129230045645"
+        rpy="0 0 0" />
+      <mass
+        value="0.0174359068070746" />
+      <inertia
+        ixx="5.2748517740017E-06"
+        ixy="2.52839048078136E-09"
+        ixz="-4.30155757447992E-08"
+        iyy="7.47358565355333E-06"
+        iyz="3.64112173942691E-07"
+        izz="4.96152225058903E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/IMU_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/IMU_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="GPS_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.01829 -0.000125000000000153 0.162297474284102"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="GPS_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+  <link
+    name="camera_Link">
+    <inertial>
+      <origin
+        xyz="0.000991766672996907 0.024487106735259 0.000258129230045645"
+        rpy="0 0 0" />
+      <mass
+        value="0.0174359068070746" />
+      <inertia
+        ixx="5.2748517740017E-06"
+        ixy="2.52839048078136E-09"
+        ixz="-4.30155757447992E-08"
+        iyy="7.47358565355333E-06"
+        iyz="3.64112173942691E-07"
+        izz="4.96152225058903E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/IMU_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mathew/meshes/IMU_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_Joint"
+    type="fixed">
+    <origin
+      xyz="0.0 0.0 1"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="Robot_base_link" />
+    <child
+      link="camera_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+  <joint name="camera_depth_joint" type="fixed">
+        <origin xyz="0.0 -0.02 0.0" rpy="0 0 0" />
+        <parent link="camera_Link" />
+        <child link="camera_depth_frame"/>
+      </joint>
+
+      <link name="camera_depth_frame"/>
+
+      <joint name="camera_depth_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-pi/2} 0.0 ${-pi/2}" />
+        <parent link="camera_depth_frame" />
+        <child link="camera_depth_optical_frame"/>
+      </joint>
+
+      <link name="camera_depth_optical_frame"/>
+
+      <joint name="camera_rgb_joint" type="fixed">
+        <origin xyz="0.0 -0.0125 0.0" rpy="0 0 0" />
+        <parent link="camera_Link" />
+        <child link="camera_rgb_frame"/>
+      </joint>
+
+      <link name="camera_rgb_frame"/>
+
+      <joint name="camera_rgb_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-pi/2} 0.0 ${-pi/2}" />
+        <parent link="camera_rgb_frame" />
+        <child link="camera_rgb_optical_frame"/>
+      </joint>
+
+      <link name="camera_rgb_optical_frame"/>
+
+
+ 
+
+  <gazebo>
+    <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+      <updateRate>50.0</updateRate>
+      <bodyName>IMU_Link</bodyName>
+      <topicName>imu/data</topicName>
+      <accelDrift>0.005 0.005 0.005</accelDrift>
+      <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+      <rateDrift>0.005 0.005 0.005 </rateDrift>
+      <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+      <headingDrift>0.005</headingDrift>
+      <headingGaussianNoise>0.005</headingGaussianNoise>
+    </plugin>
+  </gazebo>
+
+
+
+
+
+  <!--<gazebo>
+ <plugin name="ground_truth_odometry" filename="libgazebo_ros_p3d.so">
+	  <alwaysOn>true</alwaysOn>
+	  <updateRate>100.0</updateRate>
+	  <bodyName>Robot_base_link</bodyName>
+	  <topicName>base_pose_ground_truth</topicName>
+	  <gaussianNoise>0.01</gaussianNoise>
+	  <xyzOffsets>0 0 0</xyzOffsets>
+	  <rpyOffsets>0 0 0</rpyOffsets>
+	</plugin>
+</gazebo>-->
+
+ <gazebo>
+            <plugin name="gazebo_ros_gps" filename="libhector_gazebo_ros_gps.so">
+                <updateRate>40.0</updateRate>
+                <broadcastTF>false</broadcastTF>
+                <bodyName>GPS_Link</bodyName>
+                      <visualize>true</visualize>
+                <frameId>GPS_Link</frameId>
+                <topicName>/gps/fix</topicName>
+                <velocityTopicName>/gps/fix_velocity</velocityTopicName>
+               <referenceLatitude>49.9</referenceLatitude>
+              <referenceLongitude>8.9</referenceLongitude>
+              <referenceHeading>0</referenceHeading>
+              <referenceAltitude>0</referenceAltitude>
+                <offset>0 0 0</offset>
+                <drift>0.001 0.001 0.001</drift>
+            </plugin>
+        </gazebo>
+
+        <gazebo reference="camera_depth_frame">
+        <sensor type="depth" name="camera">
+          <update_rate>10</update_rate>
+          <camera>
+            <horizontal_fov>${90 * pi/180.0}</horizontal_fov>
+            <image>
+              <format>L8</format>
+              <width>640</width>
+              <height>480</height>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>100</far>
+            </clip>
+          </camera>
+          <plugin name="camera_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+            <imageTopicName>camera/rgb/image_raw</imageTopicName>
+            <cameraInfoTopicName>camera/rgb/camera_info</cameraInfoTopicName>
+            <depthImageTopicName>camera/depth/image_raw</depthImageTopicName>
+            <depthImageCameraInfoTopicName>camera/depth/camera_info</depthImageCameraInfoTopicName>
+            <pointCloudTopicName>camera/depth/points</pointCloudTopicName>
+            <frameName>camera_depth_optical_frame</frameName>
+          </plugin>
+        </sensor>
+      </gazebo>
+
+    <gazebo>
+      <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+        <updateRate>100.0</updateRate>
+        <robotNamespace>/mathew</robotNamespace>
+        <leftFrontJoint>Joint_FL</leftFrontJoint>
+        <rightFrontJoint>Joint_FR</rightFrontJoint>
+        <leftRearJoint>Joint_RL</leftRearJoint>
+        <rightRearJoint>Joint_RR</rightRearJoint>
+        <wheelSeparation>0.768</wheelSeparation>
+        <wheelDiameter>0.102</wheelDiameter>
+        <robotBaseFrame>base_footprint</robotBaseFrame>
+        <torque>70</torque>
+        <commandTopic>/cmd_vel</commandTopic>
+        <odometryTopic>/mathew/odom</odometryTopic>
+        <broadcastTF>true</broadcastTF>
+
+      </plugin>
+    </gazebo>
+
+    <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/mathew</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>false</legacyModeNS>
+    </plugin>
+    </gazebo>
+
+  
+</robot>

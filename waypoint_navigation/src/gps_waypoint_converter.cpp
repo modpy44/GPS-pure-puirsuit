@@ -4,6 +4,8 @@
 #include <utility>
 #include <vector>
 #include <waypoint_navigation/navsat_conversions.h>
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
 #include <geometry_msgs/PointStamped.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <std_msgs/Bool.h>
@@ -14,6 +16,7 @@
 
 
 // initialize variables
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
 std::vector <std::pair<double, double>> waypointVect;
 std::vector<std::pair < double, double> > ::iterator iter; //init. iterator
@@ -46,7 +49,7 @@ int countWaypointsInFile(std::string path_local)
             fileCount >> lati;
             ++count;
         }
-        count = count - 1;
+        //count = count - 1;
         numWaypoints = count / 2;
         ROS_INFO("%.0f GPS waypoints were read", numWaypoints);
         fileCount.close();
@@ -177,6 +180,12 @@ int main(int argc, char** argv)
     std::vector<geometry_msgs::PoseStamped> list;
     int i = 0;
 
+    MoveBaseClient ac("move_base", true);
+    while(!ac.waitForServer(ros::Duration(5.0))){
+     ROS_INFO("Waiting for the move_base action server to come up");
+     }
+
+    move_base_msgs::MoveBaseGoal goal_m;
     // Initiate publisher to send end of node message
     ros::Publisher pubWaypointNodeEnded = n.advertise<std_msgs::Bool>("/waypoint_navigation/waypoint_following_status", 100);
     ros::Publisher waypoint_pub = n.advertise<geometry_msgs::PoseStamped >("/goal",100);
@@ -244,20 +253,22 @@ int main(int argc, char** argv)
 
 
      ros::Rate loop_rate(10);
-     while(ros::ok() && (i < list.size()) ){ 
+     while( ros::ok() && (i < list.size()) ){ 
+        goal_m.target_pose = list[i];
+      // if (new_goal){
+        ac.sendGoal(goal_m);
+        ROS_INFO("Sending goal"); 
+        ac.waitForResult();
+        // waypoint_pub.publish(list[i]); 
+        // new_goal = false ;
+        if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+           ROS_INFO("goal reached");
+           i++; 
 
-       if (new_goal){
+        }
 
-         waypoint_pub.publish(list[i]); 
-         ROS_INFO("Sending goal"); 
-         new_goal = false ;
-         i++; 
-           
-       }
-       
       ros::spinOnce();
-      loop_rate.sleep();
-    }
+      }
 
     ros::shutdown();
 

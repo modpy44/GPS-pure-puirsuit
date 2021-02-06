@@ -1,0 +1,50 @@
+<launch>
+
+<arg name="model" default="$(find mathew)/urdf/mathew_2.urdf.xacro"/>
+  <arg name="cmd_vel_topic" default="/mathew/cmd_vel" />
+  <arg name="odom_topic" default="/odometry/filtered_map" />
+  <arg name="move_forward_only" default="false"/>
+
+<param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+<param name="base_frame_id" value="base_footprint"/>
+<param name="global_frame_id" value="map"/>
+<param name="lookahead_frame_id" value="lookahead"/>
+<rosparam file="$(find mathew)/param/mathew.yaml" command="load"/>
+
+  <include file="$(find mathew)/launch/mathew_world.launch">
+    <arg name="model" value="$(arg model)"/>
+  </include>
+
+  <include file="$(find mathew)/launch/localization.launch"/>
+
+  <!-- Launch the map server -->
+<node pkg="map_server" type="map_server" name="map_server"
+        args="$(find mathew)/maps/empty.yaml">
+    <param name="frame_id" value="map"/>
+</node>
+
+  <include file="$(find mathew)/launch/merge_laser.launch"/>
+
+   <!--DWA-pure pursuit planner-->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="base_local_planner" value="agribot_local_planner/AgribotLocalPlanner"/>   
+    <rosparam file="$(find mathew)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find mathew)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find mathew)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find mathew)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find mathew)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find mathew)/param/dwa_local_planner_params.yaml" command="load" />
+    
+    <remap from="move_base_simple/goal" to="/goal"/>
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+    <remap from="odom" to="$(arg odom_topic)"/>
+    <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
+  </node>
+
+  <!-- Launch rviz -->
+  <node pkg="rviz" type="rviz" name="rviz"
+        args="-d $(find mathew)/rviz/test.rviz"/>
+
+
+    
+</launch>

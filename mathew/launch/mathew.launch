@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
   <arg
-    name="model" default="$(find mathew)/urdf/mathew_2.urdf.xacro"/>
+    name="model" default="$(find mathew)/urdf/mathew_3.urdf.xacro"/>
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
 
-  <include file="$(find mathew)/launch/mathew_world.launch">
+  <include file="$(find mathew)/launch/mathew_world_2.launch">
     <arg name="model" value="$(arg model)"/>
   </include>
   
@@ -17,6 +17,7 @@
   <include file="$(find pc2l)/launch/start.launch"/>
 
   <include file="$(find mathew)/launch/merge_laser.launch"/>
+
 
 
 

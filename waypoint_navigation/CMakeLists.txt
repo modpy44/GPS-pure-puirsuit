@@ -8,6 +8,10 @@ project(waypoint_navigation)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+ actionlib
+ actionlib_msgs
+ move_base
+ move_base_msgs
  roscpp
  roslib
  tf

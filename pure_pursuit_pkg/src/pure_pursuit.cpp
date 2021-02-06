@@ -183,7 +183,7 @@ void PurePursuit::computeVelocities(nav_msgs::Odometry odom)
         goal_reached_ = true;
         std_msgs::Bool goal_r ;
         goal_r.data = true ;
-        //ROS_WARN_STREAM("goal reached published !");
+        ROS_WARN_STREAM("goal reached published !");
         pub_state_.publish(goal_r);
         
         // Reset the path
@@ -229,19 +229,25 @@ void PurePursuit::computeVelocities(nav_msgs::Odometry odom)
       
       // Compute the angular velocity.
       // Lateral error is the y-value of the lookahead point (in base_link frame)
-      double yt = lookahead_.transform.translation.y; //ROS_INFO("yt %f",yt);
+      double yt = lookahead_.transform.translation.y; 
+      double xt = lookahead_.transform.translation.x;//ROS_INFO("yt %f",yt);
       double ld_2 = ld_ * ld_;
-      cmd_vel_.angular.z = std::min( 2*v_ / ld_2 * yt, w_max_ ); 
-      //ROS_INFO("angular %f",std::min( 2*v_ / ld_2 * yt, w_max_ ));
+      double exp = 2*v_ / ld_2 * yt;
+      double ang_ = copysign(std::min( fabs(exp) , w_max_ ),exp);
+      cmd_vel_.angular.z = ang_ ;
 
       // Compute desired Ackermann steering angle
-      cmd_acker_.drive.steering_angle = std::min( atan2(2 * yt * L_, ld_2), delta_max_ );
+      //cmd_acker_.drive.steering_angle = std::min( atan2(2 * yt * L_, ld_2), delta_max_ );
       
       // Set linear velocity for tracking.
-      cmd_vel_.linear.x = v_;
-      cmd_acker_.drive.speed = v_;
+      double linv_ = std::min( fabs(xt / yt)* 0.1 , 0.1) ;
+      //if(fabs(ang_) == w_max_ ){linv_ = 0.0;}
+      cmd_vel_.linear.x = linv_;
+      ROS_INFO("angular %f yt %f xt %f v_ %f",ang_,yt,xt,linv_);
 
-      cmd_acker_.header.stamp = ros::Time::now();
+      //cmd_acker_.drive.speed = v_;
+
+      //cmd_acker_.header.stamp = ros::Time::now();
     }
     else
     {
@@ -257,9 +263,9 @@ void PurePursuit::computeVelocities(nav_msgs::Odometry odom)
       cmd_vel_.linear.x = 0.0;
       cmd_vel_.angular.z = 0.0;
 
-      cmd_acker_.header.stamp = ros::Time::now();
-      cmd_acker_.drive.steering_angle = 0.0;
-      cmd_acker_.drive.speed = 0.0;
+      //cmd_acker_.header.stamp = ros::Time::now();
+      //cmd_acker_.drive.steering_angle = 0.0;
+      //cmd_acker_.drive.speed = 0.0;
     }
 
     // Publish the lookahead target transform.
@@ -270,7 +276,7 @@ void PurePursuit::computeVelocities(nav_msgs::Odometry odom)
     pub_vel_.publish(cmd_vel_);
 
     // Publish ackerman steering setpoints
-    pub_acker_.publish(cmd_acker_);
+    //pub_acker_.publish(cmd_acker_);
   }
   catch (tf2::TransformException &ex)
   {
