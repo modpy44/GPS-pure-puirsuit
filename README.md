@@ -5,7 +5,7 @@ ROS package to simulate GPS waypoints navigation and pure puirsuit path followin
 
 ## How to build ##
 
-Clone the repo in $CATKIN_WS/src and `catkin_make`
+Clone the repo in catkin_ws/src and `catkin_make`
 
 ## How to run ##
 
